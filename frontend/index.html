@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Harvest - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/berry-burst-colors.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-leaf"></i> Fresh Harvest</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <button id="cartBtn" class="btn-cart" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cart-count">0</span>
+                    </button>
+                    <div class="auth-buttons" id="authButtons">
+                        <button id="loginBtn" class="btn btn-outline" onclick="window.location.href='login.html'">Login</button>
+                        <button id="registerBtn" class="btn btn-primary" onclick="window.location.href='register.html'">Register</button>
+                    </div>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <button id="userBtn" class="btn-user">
+                            <i class="fas fa-user"></i>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="profile.html">Profile</a>
+                            <a href="orders.html">My Orders</a>
+                            <a href="vendor.html" id="vendorLink" style="display: none;">Vendor Dashboard</a>
+                            <a href="admin.html" id="adminLink" style="display: none;">Admin Dashboard</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="homePage" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Fresh & Healthy</h1>
+                    <h2>Premium Fruit Juices & Dry Fruits</h2>
+                    <p>Discover nature's finest selection of organic juices and premium dry fruits</p>
+                    <button class="btn btn-primary btn-large" onclick="window.location.href='products.html'">
+                        Shop Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600" alt="Fresh Fruits">
+                </div>
+            </div>
+
+            <div class="features-section">
+                <div class="container">
+                    <h2>Why Choose Fresh Harvest?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-leaf"></i>
+                            <h3>100% Organic</h3>
+                            <p>All our products are certified organic and free from harmful chemicals</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shipping-fast"></i>
+                            <h3>Fast Delivery</h3>
+                            <p>Get your fresh products delivered to your doorstep within 24 hours</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-medal"></i>
+                            <h3>Premium Quality</h3>
+                            <p>We source only the finest quality fruits and dry fruits from trusted vendors</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-heart"></i>
+                            <h3>Healthy Living</h3>
+                            <p>Promote a healthy lifestyle with our nutritious and delicious products</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="categories-section">
+                <div class="container">
+                    <h2>Shop by Category</h2>
+                    <div class="categories-grid">
+                        <div class="category-card" onclick="window.location.href='products.html?category=fruit-juice'">
+                            <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400" alt="Fruit Juices">
+                            <div class="category-content">
+                                <h3>Fruit Juices</h3>
+                                <p>Fresh and natural fruit juices</p>
+                            </div>
+                        </div>
+                        <div class="category-card" onclick="window.location.href='products.html?category=dry-fruits'">
+                            <img src="https://images.unsplash.com/photo-1603046891744-76e6300f82b8?w=400" alt="Dry Fruits">
+                            <div class="category-content">
+                                <h3>Dry Fruits</h3>
+                                <p>Premium quality dried fruits and nuts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fresh Harvest</h3>
+                    <p>Your trusted source for premium fruit juices and dry fruits.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruit-juice">Fruit Juices</a></li>
+                        <li><a href="products.html?category=dry-fruits">Dry Fruits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fresh Harvest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

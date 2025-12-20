@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Harvest - About Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-leaf"></i> Fresh Harvest</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <button id="cartBtn" class="btn-cart" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cart-count">0</span>
+                    </button>
+                    <div class="auth-buttons" id="authButtons">
+                        <button id="loginBtn" class="btn btn-outline" onclick="window.location.href='login.html'">Login</button>
+                        <button id="registerBtn" class="btn btn-primary" onclick="window.location.href='register.html'">Register</button>
+                    </div>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <button id="userBtn" class="btn-user">
+                            <i class="fas fa-user"></i>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="profile.html">Profile</a>
+                            <a href="orders.html">My Orders</a>
+                            <a href="vendor.html" id="vendorLink" style="display: none;">Vendor Dashboard</a>
+                            <a href="admin.html" id="adminLink" style="display: none;">Admin Dashboard</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- About Page -->
+        <section id="aboutPage" class="page active">
+            <div class="container">
+                <div class="about-hero">
+                    <h1>About Fresh Harvest</h1>
+                    <p class="about-subtitle">Your trusted source for premium fruit juices and dry fruits</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-section">
+                        <div class="about-text">
+                            <h2>Our Story</h2>
+                            <p>Fresh Harvest was founded with a simple mission: to bring the finest quality organic fruit juices and dry fruits to health-conscious consumers. We believe that nature provides everything we need for a healthy lifestyle, and our products reflect this philosophy.</p>
+                            <p>Since our establishment, we have been working closely with carefully selected vendors and farmers who share our commitment to quality and sustainability. Every product in our collection is carefully sourced, tested, and packaged to ensure the highest standards.</p>
+                        </div>
+                        <div class="about-image">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500" alt="Fresh Harvest Story">
+                        </div>
+                    </div>
+
+                    <div class="about-section reverse">
+                        <div class="about-text">
+                            <h2>Our Mission</h2>
+                            <p>Our mission is to promote healthy living through natural, nutritious, and delicious food products. We strive to make premium organic products accessible to everyone while supporting sustainable farming practices.</p>
+                            <p>We are committed to transparency in our sourcing, fair trade practices, and environmental responsibility. Every purchase you make supports not just your health, but also the communities and ecosystems that produce these wonderful products.</p>
+                        </div>
+                        <div class="about-image">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500" alt="Our Mission">
+                        </div>
+                    </div>
+
+                    <div class="values-section">
+                        <h2>Our Values</h2>
+                        <div class="values-grid">
+                            <div class="value-card">
+                                <i class="fas fa-leaf"></i>
+                                <h3>Organic Quality</h3>
+                                <p>We source only certified organic products, ensuring they are free from harmful chemicals and pesticides.</p>
+                            </div>
+                            <div class="value-card">
+                                <i class="fas fa-heart"></i>
+                                <h3>Health First</h3>
+                                <p>Your health is our priority. We carefully select products that provide maximum nutritional benefits.</p>
+                            </div>
+                            <div class="value-card">
+                                <i class="fas fa-handshake"></i>
+                                <h3>Fair Trade</h3>
+                                <p>We believe in fair compensation for farmers and workers who produce our products.</p>
+                            </div>
+                            <div class="value-card">
+                                <i class="fas fa-recycle"></i>
+                                <h3>Sustainability</h3>
+                                <p>We are committed to environmental responsibility and sustainable farming practices.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-section">
+                        <h2>Our Team</h2>
+                        <p>Fresh Harvest is powered by a dedicated team of food enthusiasts, nutrition experts, and customer service professionals. We are passionate about bringing you the best products and experience possible.</p>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" alt="Team Member">
+                                <h3>John Smith</h3>
+                                <p>Founder & CEO</p>
+                            </div>
+                            <div class="team-member">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300" alt="Team Member">
+                                <h3>Sarah Johnson</h3>
+                                <p>Head of Quality Control</p>
+                            </div>
+                            <div class="team-member">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300" alt="Team Member">
+                                <h3>Mike Davis</h3>
+                                <p>Supply Chain Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fresh Harvest</h3>
+                    <p>Your trusted source for premium fruit juices and dry fruits.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruit-juice">Fruit Juices</a></li>
+                        <li><a href="products.html?category=dry-fruits">Dry Fruits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fresh Harvest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

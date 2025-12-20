@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Test - Fixed</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+        .warning { background-color: #fff3cd; color: #856404; }
+        .upload-container { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Upload Test - Fixed Version</h1>
+    <div id="testResults"></div>
+    
+    <div class="upload-container">
+        <h3>Manual Upload Test</h3>
+        <input type="file" id="testFileInput" accept="image/*">
+        <button onclick="testDirectUpload()">Test Direct Upload</button>
+        <button onclick="testAPIUpload()">Test API Upload</button>
+        <div id="uploadResult"></div>
+    </div>
+
+    <!-- Load the same scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        let testResults = [];
+
+        function addTestResult(message, type = 'info') {
+            testResults.push({ message, type });
+            updateTestDisplay();
+        }
+
+        function updateTestDisplay() {
+            const container = document.getElementById('testResults');
+            container.innerHTML = testResults.map(result => 
+                `<div class="test-result ${result.type}">${result.message}</div>`
+            ).join('');
+        }
+
+        // Test API availability
+        setTimeout(() => {
+            console.log('=== UPLOAD TEST STARTING ===');
+            addTestResult('Starting upload functionality test...', 'info');
+
+            // Test API availability
+            if (window.api) {
+                addTestResult('✅ API service is available', 'success');
+                addTestResult(`API methods: ${Object.getOwnPropertyNames(window.api).join(', ')}`, 'info');
+                
+                if (window.api.uploadImage) {
+                    addTestResult('✅ uploadImage method is available', 'success');
+                } else {
+                    addTestResult('❌ uploadImage method is NOT available', 'error');
+                }
+            } else {
+                addTestResult('❌ API service is not available', 'error');
+            }
+
+            // Test authentication
+            const token = localStorage.getItem('token');
+            if (token) {
+                addTestResult('✅ Authentication token found', 'success');
+            } else {
+                addTestResult('❌ No authentication token found', 'error');
+                addTestResult('⚠️ You need to login first to upload images', 'warning');
+            }
+
+        }, 1000);
+
+        // Direct upload test (manual fetch)
+        async function testDirectUpload() {
+            const fileInput = document.getElementById('testFileInput');
+            const resultDiv = document.getElementById('uploadResult');
+            
+            if (!fileInput.files[0]) {
+                resultDiv.innerHTML = '<div class="test-result error">Please select a file first</div>';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            resultDiv.innerHTML = '<div class="test-result info">Testing direct upload...</div>';
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                const token = localStorage.getItem('token');
+                const headers = {};
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+
+                const response = await fetch('http://localhost:5000/api/upload/image', {
+                    method: 'POST',
+                    body: formData,
+                    headers: headers
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(JSON.stringify(errorData));
+                }
+
+                const result = await response.json();
+                console.log('Direct upload response:', result);
+                
+                resultDiv.innerHTML = `
+                    <div class="test-result success">✅ Direct upload successful!</div>
+                    <div class="test-result info">Image URL: ${result.imageUrl}</div>
+                    <div class="test-result info">Filename: ${result.filename}</div>
+                `;
+                
+            } catch (error) {
+                console.error('Direct upload error:', error);
+                
+                let errorMessage = 'Unknown error';
+                try {
+                    const errorData = JSON.parse(error.message);
+                    errorMessage = errorData.message || errorData.error || error.message;
+                } catch (e) {
+                    errorMessage = error.message;
+                }
+                
+                resultDiv.innerHTML = `
+                    <div class="test-result error">❌ Direct upload failed</div>
+                    <div class="test-result error">Error: ${errorMessage}</div>
+                `;
+            }
+        }
+
+        // API upload test
+        async function testAPIUpload() {
+            const fileInput = document.getElementById('testFileInput');
+            const resultDiv = document.getElementById('uploadResult');
+            
+            if (!fileInput.files[0]) {
+                resultDiv.innerHTML = '<div class="test-result error">Please select a file first</div>';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            resultDiv.innerHTML = '<div class="test-result info">Testing API upload...</div>';
+
+            try {
+                if (!window.api || !window.api.uploadImage) {
+                    throw new Error('API service or uploadImage method not available');
+                }
+
+                const response = await window.api.uploadImage(file);
+                console.log('API upload response:', response);
+                
+                resultDiv.innerHTML = `
+                    <div class="test-result success">✅ API upload successful!</div>
+                    <div class="test-result info">Image URL: ${response.imageUrl}</div>
+                    <div class="test-result info">Filename: ${response.filename}</div>
+                `;
+                
+            } catch (error) {
+                console.error('API upload error:', error);
+                
+                let errorMessage = 'Unknown error';
+                try {
+                    const errorData = JSON.parse(error.message);
+                    errorMessage = errorData.message || errorData.error || error.message;
+                } catch (e) {
+                    errorMessage = error.message;
+                }
+                
+                resultDiv.innerHTML = `
+                    <div class="test-result error">❌ API upload failed</div>
+                    <div class="test-result error">Error: ${errorMessage}</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

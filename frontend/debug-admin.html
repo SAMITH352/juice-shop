@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        .info { background: #e3f2fd; color: #1565c0; }
+        button { padding: 10px 15px; margin: 5px; border: none; border-radius: 3px; cursor: pointer; }
+        .btn-primary { background: #007bff; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Debug Admin Dashboard</h1>
+    
+    <div class="debug info">
+        <h3>Debug Information</h3>
+        <p><strong>Current URL:</strong> <span id="currentUrl"></span></p>
+        <p><strong>Token:</strong> <span id="tokenInfo"></span></p>
+        <p><strong>User:</strong> <span id="userInfo"></span></p>
+        <p><strong>Auth Status:</strong> <span id="authInfo"></span></p>
+    </div>
+
+    <div class="debug">
+        <h3>Actions</h3>
+        <button class="btn-primary" onclick="testLogin()">Login as Admin</button>
+        <button class="btn-primary" onclick="testAuthCheck()">Check Auth</button>
+        <button class="btn-primary" onclick="testAdminAccess()">Test Admin Access</button>
+        <button class="btn-primary" onclick="clearStorage()">Clear Storage</button>
+    </div>
+
+    <div class="debug">
+        <h3>Console Output</h3>
+        <div id="console" style="background: black; color: green; padding: 10px; height: 200px; overflow-y: auto; font-family: monospace;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        // Override console.log to show in our debug console
+        const originalLog = console.log;
+        const debugConsole = document.getElementById('console');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            debugConsole.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+            debugConsole.scrollTop = debugConsole.scrollHeight;
+        };
+
+        function updateDebugInfo() {
+            document.getElementById('currentUrl').textContent = window.location.href;
+            document.getElementById('tokenInfo').textContent = localStorage.getItem('token') ? 'Present' : 'Not found';
+            
+            const user = auth.getCurrentUser();
+            document.getElementById('userInfo').textContent = user ? `${user.name} (${user.role})` : 'Not logged in';
+            document.getElementById('authInfo').textContent = auth.isAuthenticated() ? 'Authenticated' : 'Not authenticated';
+        }
+
+        async function testLogin() {
+            try {
+                console.log('Testing admin login...');
+                const response = await api.login({
+                    email: 'admin@freshharvest.com',
+                    password: 'admin123456'
+                });
+                
+                console.log('Login response:', response);
+                
+                localStorage.setItem('token', response.token);
+                auth.setCurrentUser(response.user);
+                
+                console.log('Login successful!');
+                updateDebugInfo();
+            } catch (error) {
+                console.log('Login failed:', error.message);
+            }
+        }
+
+        async function testAuthCheck() {
+            try {
+                console.log('Testing auth check...');
+                await auth.checkAuthStatus();
+                console.log('Auth check completed');
+                updateDebugInfo();
+            } catch (error) {
+                console.log('Auth check failed:', error.message);
+            }
+        }
+
+        async function testAdminAccess() {
+            try {
+                console.log('Testing admin access...');
+                const hasAccess = await auth.requireRole('admin');
+                console.log('Admin access result:', hasAccess);
+                
+                if (hasAccess) {
+                    console.log('Admin access granted! Testing API call...');
+                    try {
+                        const stats = await api.getDashboardStats();
+                        console.log('Dashboard stats:', stats);
+                    } catch (apiError) {
+                        console.log('API call failed:', apiError.message);
+                    }
+                }
+            } catch (error) {
+                console.log('Admin access test failed:', error.message);
+            }
+        }
+
+        function clearStorage() {
+            localStorage.clear();
+            console.log('Storage cleared');
+            updateDebugInfo();
+        }
+
+        // Initialize
+        setTimeout(() => {
+            console.log('Debug page loaded');
+            updateDebugInfo();
+            
+            // Test if auth is working
+            console.log('Auth object:', auth);
+            console.log('API object:', api);
+            
+            // Check if we have existing auth
+            const token = localStorage.getItem('token');
+            if (token) {
+                console.log('Found existing token, checking auth status...');
+                testAuthCheck();
+            }
+        }, 500);
+    </script>
+</body>
+</html>

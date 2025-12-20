@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Harvest - My Orders</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-leaf"></i> Fresh Harvest</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <button id="cartBtn" class="btn-cart" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cart-count">0</span>
+                    </button>
+                    <div class="auth-buttons" id="authButtons" style="display: none;">
+                        <button id="loginBtn" class="btn btn-outline" onclick="window.location.href='login.html'">Login</button>
+                        <button id="registerBtn" class="btn btn-primary" onclick="window.location.href='register.html'">Register</button>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <button id="userBtn" class="btn-user">
+                            <i class="fas fa-user"></i>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="profile.html">Profile</a>
+                            <a href="orders.html">My Orders</a>
+                            <a href="vendor.html" id="vendorLink" style="display: none;">Vendor Dashboard</a>
+                            <a href="admin.html" id="adminLink" style="display: none;">Admin Dashboard</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Orders Page -->
+        <section id="ordersPage" class="page active">
+            <div class="container">
+                <div class="orders-header">
+                    <h1>My Orders</h1>
+                    <p>Track your orders and view order history</p>
+                </div>
+                
+                <div class="orders-filters">
+                    <div class="filter-group">
+                        <label for="statusFilter">Filter by Status:</label>
+                        <select id="statusFilter">
+                            <option value="">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="dateFilter">Filter by Date:</label>
+                        <select id="dateFilter">
+                            <option value="">All Time</option>
+                            <option value="7">Last 7 days</option>
+                            <option value="30">Last 30 days</option>
+                            <option value="90">Last 3 months</option>
+                            <option value="365">Last year</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="btn btn-outline" onclick="clearFilters()">Clear Filters</button>
+                    </div>
+                </div>
+                
+                <div class="orders-content">
+                    <div id="ordersList" class="orders-list">
+                        <!-- Orders will be loaded here -->
+                    </div>
+                    
+                    <div class="orders-empty" id="ordersEmpty" style="display: none;">
+                        <div class="empty-state">
+                            <i class="fas fa-shopping-bag"></i>
+                            <h2>No Orders Yet</h2>
+                            <p>You haven't placed any orders yet. Start shopping to see your order history here.</p>
+                            <a href="products.html" class="btn btn-primary">Start Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Detail Modal -->
+        <div id="orderDetailModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Order Details</h2>
+                    <button class="modal-close" onclick="closeOrderModal()">&times;</button>
+                </div>
+                <div class="order-detail-content">
+                    <div class="order-info">
+                        <div class="order-header">
+                            <h3 id="modalOrderId">Order #12345</h3>
+                            <span id="modalOrderStatus" class="order-status">Pending</span>
+                        </div>
+                        <div class="order-meta">
+                            <p><strong>Order Date:</strong> <span id="modalOrderDate">January 1, 2024</span></p>
+                            <p><strong>Total Amount:</strong> <span id="modalOrderTotal">$99.99</span></p>
+                            <p><strong>Payment Method:</strong> <span id="modalPaymentMethod">Cash on Delivery</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="order-tracking">
+                        <h4>Order Tracking</h4>
+                        <div class="tracking-timeline" id="trackingTimeline">
+                            <!-- Tracking timeline will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="order-items">
+                        <h4>Order Items</h4>
+                        <div id="modalOrderItems">
+                            <!-- Order items will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="shipping-info">
+                        <h4>Shipping Information</h4>
+                        <div id="modalShippingInfo">
+                            <!-- Shipping info will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="order-actions">
+                        <button class="btn btn-outline" onclick="downloadInvoice()">
+                            <i class="fas fa-download"></i> Download Invoice
+                        </button>
+                        <button class="btn btn-primary" onclick="reorderItems()">
+                            <i class="fas fa-redo"></i> Reorder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fresh Harvest</h3>
+                    <p>Your trusted source for premium fruit juices and dry fruits.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruit-juice">Fruit Juices</a></li>
+                        <li><a href="products.html?category=dry-fruits">Dry Fruits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fresh Harvest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

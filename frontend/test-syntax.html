@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Syntax Test</title>
+</head>
+<body>
+    <h1>JavaScript Syntax Test</h1>
+    <div id="results"></div>
+
+    <script>
+        console.log('Starting syntax test...');
+        
+        // Test 1: Object.assign instead of spread operator
+        try {
+            const obj1 = { a: 1, b: 2 };
+            const obj2 = { c: 3, d: 4 };
+            const merged = Object.assign({}, obj1, obj2);
+            console.log('✅ Object.assign test passed:', merged);
+        } catch (error) {
+            console.error('❌ Object.assign test failed:', error);
+        }
+
+        // Test 2: Safe property access instead of optional chaining
+        try {
+            const obj = { nested: { value: 'test' } };
+            const value = obj.nested && obj.nested.value;
+            console.log('✅ Safe property access test passed:', value);
+        } catch (error) {
+            console.error('❌ Safe property access test failed:', error);
+        }
+
+        // Test 3: Class definition
+        try {
+            class TestClass {
+                constructor() {
+                    this.name = 'test';
+                }
+                
+                testMethod() {
+                    return 'method works';
+                }
+            }
+            
+            const instance = new TestClass();
+            console.log('✅ Class test passed:', instance.testMethod());
+        } catch (error) {
+            console.error('❌ Class test failed:', error);
+        }
+
+        // Test 4: Async/await
+        try {
+            async function testAsync() {
+                return 'async works';
+            }
+            
+            testAsync().then(result => {
+                console.log('✅ Async/await test passed:', result);
+            });
+        } catch (error) {
+            console.error('❌ Async/await test failed:', error);
+        }
+
+        console.log('Syntax test completed. Check console for results.');
+        
+        // Update page content
+        document.getElementById('results').innerHTML = `
+            <p>JavaScript syntax test completed. Check the browser console for detailed results.</p>
+            <p>If you see this message, basic JavaScript is working.</p>
+        `;
+    </script>
+</body>
+</html>

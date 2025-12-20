@@ -1,0 +1,264 @@
+/* 
+===========================================
+BERRY BURST COLOR PALETTE - UI GUIDE
+===========================================
+
+Color Palette:
+- #FF4D6D (Strawberry Red) - Primary brand color
+- #E94463 (Darker Strawberry Red) - Hover states
+- #3B4CCA (Blueberry Blue) - Secondary actions
+- #2E3EA4 (Darker Blueberry) - Blue hover states
+- #FFD1DC (Soft Pink) - Backgrounds & highlights
+- #FFFFFF (White) - Clean backgrounds
+- #9B1D73 (Berry Purple) - Accents & icons
+- #5B104E (Dark Berry) - Text & dark elements
+
+Psychological Reasoning:
+- Strawberry Red: Creates urgency, appetite appeal, encourages action
+- Blueberry Blue: Trust, reliability, secondary actions
+- Soft Pink: Warmth, comfort, gentle backgrounds
+- Berry Purple: Premium feel, sophistication
+- Dark Berry: Readability, authority, grounding
+*/
+
+:root {
+  /* Primary Colors */
+  --strawberry-red: #FF4D6D;
+  --strawberry-red-hover: #E94463;
+  --blueberry-blue: #3B4CCA;
+  --blueberry-blue-hover: #2E3EA4;
+  --soft-pink: #FFD1DC;
+  --white: #FFFFFF;
+  --berry-purple: #9B1D73;
+  --dark-berry: #5B104E;
+  
+  /* Semantic Color Assignments */
+  --primary-bg: var(--strawberry-red);
+  --primary-bg-hover: var(--strawberry-red-hover);
+  --primary-text: var(--white);
+  
+  --secondary-bg: var(--blueberry-blue);
+  --secondary-bg-hover: var(--blueberry-blue-hover);
+  --secondary-text: var(--white);
+  
+  --accent-bg: var(--soft-pink);
+  --accent-text: var(--dark-berry);
+  
+  --nav-bg: var(--white);
+  --nav-text: var(--dark-berry);
+  --nav-accent: var(--berry-purple);
+  
+  --body-bg: var(--white);
+  --body-text: var(--dark-berry);
+  --heading-text: var(--dark-berry);
+  
+  --card-bg: var(--white);
+  --card-border: var(--soft-pink);
+  --card-shadow: rgba(155, 29, 115, 0.1);
+  
+  --success: #27ae60;
+  --warning: #f39c12;
+  --error: var(--strawberry-red);
+  --info: var(--blueberry-blue);
+}
+
+/* ===========================================
+   COMPONENT COLOR APPLICATIONS
+   =========================================== */
+
+/* PRIMARY BUTTONS - Strawberry Red */
+.btn-primary {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  border: 2px solid var(--primary-bg);
+}
+
+.btn-primary:hover {
+  background: var(--primary-bg-hover);
+  border-color: var(--primary-bg-hover);
+  transform: translateY(-2px);
+}
+
+/* SECONDARY BUTTONS - Blueberry Blue */
+.btn-secondary {
+  background: var(--secondary-bg);
+  color: var(--secondary-text);
+  border: 2px solid var(--secondary-bg);
+}
+
+.btn-secondary:hover {
+  background: var(--secondary-bg-hover);
+  border-color: var(--secondary-bg-hover);
+}
+
+/* OUTLINE BUTTONS - Berry Purple */
+.btn-outline {
+  background: transparent;
+  color: var(--berry-purple);
+  border: 2px solid var(--berry-purple);
+}
+
+.btn-outline:hover {
+  background: var(--berry-purple);
+  color: var(--white);
+}
+
+/* NAVIGATION BAR */
+.header {
+  background: var(--nav-bg);
+  border-bottom: 2px solid var(--soft-pink);
+  box-shadow: 0 2px 10px var(--card-shadow);
+}
+
+.nav-brand h1 {
+  color: var(--berry-purple);
+}
+
+.nav-link {
+  color: var(--nav-text);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--berry-purple);
+  border-bottom: 2px solid var(--strawberry-red);
+}
+
+/* PRODUCT CARDS */
+.product-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 5px 15px var(--card-shadow);
+}
+
+.product-card:hover {
+  box-shadow: 0 15px 35px rgba(255, 77, 109, 0.15);
+  border-color: var(--strawberry-red);
+}
+
+.product-category {
+  color: var(--berry-purple);
+}
+
+.current-price {
+  color: var(--strawberry-red);
+}
+
+/* HERO SECTION */
+.hero-section {
+  background: linear-gradient(135deg, var(--soft-pink) 0%, var(--white) 100%);
+}
+
+.hero-content h1 {
+  color: var(--dark-berry);
+}
+
+.hero-content h2 {
+  color: var(--berry-purple);
+}
+
+/* CATEGORY CARDS */
+.category-card {
+  background: var(--white);
+  border: 2px solid var(--soft-pink);
+}
+
+.category-card:hover {
+  border-color: var(--strawberry-red);
+  box-shadow: 0 10px 25px var(--card-shadow);
+}
+
+/* FEATURE CARDS */
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--soft-pink);
+}
+
+.feature-card i {
+  color: var(--berry-purple);
+}
+
+.feature-card h3 {
+  color: var(--dark-berry);
+}
+
+/* CART & SHOPPING */
+.btn-cart {
+  background: var(--strawberry-red);
+  color: var(--white);
+}
+
+.cart-count {
+  background: var(--berry-purple);
+  color: var(--white);
+}
+
+/* FORMS */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 2px solid var(--soft-pink);
+  color: var(--dark-berry);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--strawberry-red);
+  box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.1);
+}
+
+/* FOOTER */
+.footer {
+  background: var(--dark-berry);
+  color: var(--white);
+}
+
+.footer h3 {
+  color: var(--soft-pink);
+}
+
+.footer a {
+  color: var(--white);
+}
+
+.footer a:hover {
+  color: var(--strawberry-red);
+}
+
+/* LOADING & STATES */
+.loading-spinner {
+  background: rgba(91, 16, 78, 0.8);
+}
+
+.spinner {
+  border-color: var(--soft-pink);
+  border-top-color: var(--strawberry-red);
+}
+
+/* BADGES & LABELS */
+.product-badge {
+  background: var(--strawberry-red);
+  color: var(--white);
+}
+
+.status-active {
+  color: var(--success);
+}
+
+.status-inactive {
+  color: var(--error);
+}
+
+/* PAGINATION */
+.pagination button {
+  border: 1px solid var(--soft-pink);
+  color: var(--berry-purple);
+}
+
+.pagination button:hover,
+.pagination button.active {
+  background: var(--strawberry-red);
+  color: var(--white);
+  border-color: var(--strawberry-red);
+}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Harvest - My Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-leaf"></i> Fresh Harvest</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <button id="cartBtn" class="btn-cart" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cart-count">0</span>
+                    </button>
+                    <div class="auth-buttons" id="authButtons" style="display: none;">
+                        <button id="loginBtn" class="btn btn-outline" onclick="window.location.href='login.html'">Login</button>
+                        <button id="registerBtn" class="btn btn-primary" onclick="window.location.href='register.html'">Register</button>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <button id="userBtn" class="btn-user">
+                            <i class="fas fa-user"></i>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="profile.html">Profile</a>
+                            <a href="orders.html">My Orders</a>
+                            <a href="vendor.html" id="vendorLink" style="display: none;">Vendor Dashboard</a>
+                            <a href="admin.html" id="adminLink" style="display: none;">Admin Dashboard</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Profile Page -->
+        <section id="profilePage" class="page active">
+            <div class="container">
+                <div class="profile-header">
+                    <h1>My Profile</h1>
+                    <p>Manage your account information and preferences</p>
+                </div>
+                
+                <div class="profile-content">
+                    <div class="profile-sidebar">
+                        <div class="profile-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200" alt="Profile Avatar" id="profileAvatar">
+                            <button class="btn btn-outline btn-small" onclick="changeAvatar()">
+                                <i class="fas fa-camera"></i> Change Photo
+                            </button>
+                        </div>
+                        
+                        <div class="profile-nav">
+                            <button class="profile-nav-btn active" onclick="showProfileTab('personal')">
+                                <i class="fas fa-user"></i> Personal Info
+                            </button>
+                            <button class="profile-nav-btn" onclick="showProfileTab('address')">
+                                <i class="fas fa-map-marker-alt"></i> Address
+                            </button>
+                            <button class="profile-nav-btn" onclick="showProfileTab('security')">
+                                <i class="fas fa-shield-alt"></i> Security
+                            </button>
+                            <button class="profile-nav-btn" onclick="showProfileTab('preferences')">
+                                <i class="fas fa-cog"></i> Preferences
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-main">
+                        <!-- Personal Info Tab -->
+                        <div id="personalTab" class="profile-tab active">
+                            <h2>Personal Information</h2>
+                            <form id="profileForm">
+                                <div class="form-group">
+                                    <label for="profileName">Full Name</label>
+                                    <input type="text" id="profileName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileEmail">Email</label>
+                                    <input type="email" id="profileEmail" readonly>
+                                    <small>Email cannot be changed</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profilePhone">Phone Number</label>
+                                    <input type="tel" id="profilePhone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileDateOfBirth">Date of Birth</label>
+                                    <input type="date" id="profileDateOfBirth">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileGender">Gender</label>
+                                    <select id="profileGender">
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Address Tab -->
+                        <div id="addressTab" class="profile-tab">
+                            <h2>Address Information</h2>
+                            <form id="addressForm">
+                                <div class="form-group">
+                                    <label for="profileStreet">Street Address</label>
+                                    <input type="text" id="profileStreet">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profileCity">City</label>
+                                        <input type="text" id="profileCity">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileState">State/Province</label>
+                                        <input type="text" id="profileState">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profileZipCode">ZIP/Postal Code</label>
+                                        <input type="text" id="profileZipCode">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileCountry">Country</label>
+                                        <input type="text" id="profileCountry">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Address</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Security Tab -->
+                        <div id="securityTab" class="profile-tab">
+                            <h2>Security Settings</h2>
+                            <form id="passwordForm">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="newPassword" required>
+                                    <small>Password must be at least 8 characters long</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </form>
+                            
+                            <div class="security-options">
+                                <h3>Two-Factor Authentication</h3>
+                                <div class="security-option">
+                                    <div class="option-info">
+                                        <h4>Enable 2FA</h4>
+                                        <p>Add an extra layer of security to your account</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="twoFactorAuth">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Preferences Tab -->
+                        <div id="preferencesTab" class="profile-tab">
+                            <h2>Account Preferences</h2>
+                            <form id="preferencesForm">
+                                <div class="preference-group">
+                                    <h3>Email Notifications</h3>
+                                    <div class="preference-option">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="emailOrders" checked>
+                                            <span>Order updates and tracking</span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-option">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="emailPromotions" checked>
+                                            <span>Promotional offers and discounts</span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-option">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="emailNewsletter">
+                                            <span>Newsletter and updates</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="preference-group">
+                                    <h3>Privacy Settings</h3>
+                                    <div class="preference-option">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="profilePublic">
+                                            <span>Make profile public</span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-option">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="showEmail">
+                                            <span>Show email to other users</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Save Preferences</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fresh Harvest</h3>
+                    <p>Your trusted source for premium fruit juices and dry fruits.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruit-juice">Fruit Juices</a></li>
+                        <li><a href="products.html?category=dry-fruits">Dry Fruits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fresh Harvest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
