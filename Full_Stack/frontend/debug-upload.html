@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Upload</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .upload-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        input[type="file"] { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Debug Tool</h1>
+        
+        <div class="upload-section">
+            <h3>Step 1: Check Authentication</h3>
+            <button onclick="checkAuth()">Check Auth Status</button>
+            <div id="authResult"></div>
+        </div>
+
+        <div class="upload-section">
+            <h3>Step 2: Test Upload</h3>
+            <input type="file" id="fileInput" accept="image/*">
+            <br>
+            <button onclick="testUpload()">Upload Image</button>
+            <div id="uploadResult"></div>
+        </div>
+
+        <div class="upload-section">
+            <h3>Step 3: Login (if needed)</h3>
+            <input type="email" id="email" placeholder="Email" value="admin@example.com">
+            <input type="password" id="password" placeholder="Password" value="admin123">
+            <br>
+            <button onclick="login()">Login</button>
+            <div id="loginResult"></div>
+        </div>
+    </div>
+
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const resultDiv = document.getElementById('authResult');
+            
+            if (token) {
+                resultDiv.innerHTML = `
+                    <div class="result success">✅ Token found: ${token.substring(0, 20)}...</div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="result error">❌ No authentication token found. Please login first.</div>
+                `;
+            }
+        }
+
+        async function testUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const resultDiv = document.getElementById('uploadResult');
+            
+            if (!fileInput.files[0]) {
+                resultDiv.innerHTML = '<div class="result error">Please select a file first</div>';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            resultDiv.innerHTML = '<div class="result info">Uploading...</div>';
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                const token = localStorage.getItem('token');
+                const headers = {};
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+
+                console.log('Uploading:', file.name, file.type, file.size);
+                console.log('Token:', token ? 'Present' : 'Missing');
+
+                const response = await fetch('http://localhost:5000/api/upload/image', {
+                    method: 'POST',
+                    body: formData,
+                    headers: headers
+                });
+
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    
+                    let errorData;
+                    try {
+                        errorData = JSON.parse(errorText);
+                    } catch (e) {
+                        errorData = { message: errorText };
+                    }
+                    
+                    resultDiv.innerHTML = `
+                        <div class="result error">❌ Upload failed (${response.status})</div>
+                        <div class="result error">Error: ${errorData.message || 'Unknown error'}</div>
+                    `;
+                    return;
+                }
+
+                const result = await response.json();
+                console.log('Success:', result);
+                
+                resultDiv.innerHTML = `
+                    <div class="result success">✅ Upload successful!</div>
+                    <div class="result info">Image URL: ${result.imageUrl}</div>
+                    <div class="result info">Filename: ${result.filename}</div>
+                    <div class="result info">Size: ${result.size} bytes</div>
+                `;
+                
+            } catch (error) {
+                console.error('Upload error:', error);
+                resultDiv.innerHTML = `
+                    <div class="result error">❌ Upload failed</div>
+                    <div class="result error">Error: ${error.message}</div>
+                `;
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('loginResult');
+            
+            if (!email || !password) {
+                resultDiv.innerHTML = '<div class="result error">Please enter email and password</div>';
+                return;
+            }
+
+            try {
+                resultDiv.innerHTML = '<div class="result info">Logging in...</div>';
+
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="result error">❌ Login failed</div>
+                        <div class="result error">Error: ${errorData.message}</div>
+                    `;
+                    return;
+                }
+
+                const result = await response.json();
+                localStorage.setItem('token', result.token);
+                
+                resultDiv.innerHTML = `
+                    <div class="result success">✅ Login successful!</div>
+                    <div class="result info">User: ${result.user.name} (${result.user.role})</div>
+                `;
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                resultDiv.innerHTML = `
+                    <div class="result error">❌ Login failed</div>
+                    <div class="result error">Error: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Auto-check auth on page load
+        window.onload = function() {
+            checkAuth();
+        };
+    </script>
+</body>
+</html>

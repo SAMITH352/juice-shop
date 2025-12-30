@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dropdown Menu</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-section {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .dropdown-menu {
+            position: static !important;
+            display: block !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 10px 0;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btn-admin { background: #dc3545; color: white; }
+        .btn-vendor { background: #fd7e14; color: white; }
+        .btn-user { background: #007bff; color: white; }
+        .btn-logout { background: #6c757d; color: white; }
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <h1>Dropdown Menu Test</h1>
+        <p>Test how the dropdown menu changes based on user role:</p>
+        
+        <button class="btn-admin" onclick="testAdminRole()">Login as Admin</button>
+        <button class="btn-vendor" onclick="testVendorRole()">Login as Vendor</button>
+        <button class="btn-user" onclick="testUserRole()">Login as User</button>
+        <button class="btn-logout" onclick="testLogout()">Logout</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Current User Menu:</h3>
+        <div class="user-menu" id="userMenu">
+            <button id="userBtn" class="btn-user">
+                <i class="fas fa-user"></i>
+                <span id="userName">User</span>
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="profile.html">Profile</a>
+                <a href="orders.html">My Orders</a>
+                <a href="vendor.html" id="vendorLink" style="display: none;">Vendor Dashboard</a>
+                <a href="admin.html" id="adminLink" style="display: none;">Admin Dashboard</a>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>Expected Behavior:</h3>
+        <ul>
+            <li><strong>Admin:</strong> Should only see "Profile", "Admin Dashboard", and "Logout"</li>
+            <li><strong>Vendor:</strong> Should see "Profile", "My Orders", "Vendor Dashboard", and "Logout"</li>
+            <li><strong>User:</strong> Should see "Profile", "My Orders", and "Logout"</li>
+        </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        function testAdminRole() {
+            // Simulate admin user
+            const adminUser = {
+                id: '1',
+                name: 'System Administrator',
+                email: 'admin@freshharvest.com',
+                role: 'admin'
+            };
+            
+            localStorage.setItem('token', 'fake-admin-token');
+            auth.setCurrentUser(adminUser);
+            auth.updateUI();
+            
+            console.log('Simulated admin login');
+        }
+
+        function testVendorRole() {
+            // Simulate vendor user
+            const vendorUser = {
+                id: '2',
+                name: 'Test Vendor',
+                email: 'vendor@freshharvest.com',
+                role: 'vendor'
+            };
+            
+            localStorage.setItem('token', 'fake-vendor-token');
+            auth.setCurrentUser(vendorUser);
+            auth.updateUI();
+            
+            console.log('Simulated vendor login');
+        }
+
+        function testUserRole() {
+            // Simulate regular user
+            const regularUser = {
+                id: '3',
+                name: 'Test Customer',
+                email: 'customer@freshharvest.com',
+                role: 'user'
+            };
+            
+            localStorage.setItem('token', 'fake-user-token');
+            auth.setCurrentUser(regularUser);
+            auth.updateUI();
+            
+            console.log('Simulated user login');
+        }
+
+        function testLogout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            auth.currentUser = null;
+            auth.updateUI();
+            
+            console.log('Simulated logout');
+        }
+
+        // Initialize
+        setTimeout(() => {
+            console.log('Dropdown test page loaded');
+            // Show the user menu by default
+            document.getElementById('userMenu').style.display = 'block';
+        }, 500);
+    </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Harvest - Contact Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-leaf"></i> Fresh Harvest</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <button id="cartBtn" class="btn-cart" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cart-count">0</span>
+                    </button>
+                    <div class="auth-buttons" id="authButtons">
+                        <button id="loginBtn" class="btn btn-outline" onclick="window.location.href='login.html'">Login</button>
+                        <button id="registerBtn" class="btn btn-primary" onclick="window.location.href='register.html'">Register</button>
+                    </div>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <button id="userBtn" class="btn-user">
+                            <i class="fas fa-user"></i>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="profile.html">Profile</a>
+                            <a href="orders.html">My Orders</a>
+                            <a href="vendor.html" id="vendorLink" style="display: none;">Vendor Dashboard</a>
+                            <a href="admin.html" id="adminLink" style="display: none;">Admin Dashboard</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Contact Page -->
+        <section id="contactPage" class="page active">
+            <div class="container">
+                <div class="contact-hero">
+                    <h1>Contact Us</h1>
+                    <p>We'd love to hear from you. Get in touch with us for any questions or feedback.</p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <h2>Get in Touch</h2>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h3>Email</h3>
+                                    <p>info@freshharvest.com</p>
+                                    <p>support@freshharvest.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h3>Phone</h3>
+                                    <p>+1 (555) 123-4567</p>
+                                    <p>+1 (555) 987-6543</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <h3>Address</h3>
+                                    <p>123 Fresh Street</p>
+                                    <p>Health City, HC 12345</p>
+                                    <p>United States</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <h3>Business Hours</h3>
+                                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                    <p>Saturday: 10:00 AM - 4:00 PM</p>
+                                    <p>Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form-container">
+                            <h2>Send us a Message</h2>
+                            <form id="contactForm" class="contact-form">
+                                <div class="form-group">
+                                    <label for="contactName">Full Name</label>
+                                    <input type="text" id="contactName" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail">Email</label>
+                                    <input type="email" id="contactEmail" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactPhone">Phone (Optional)</label>
+                                    <input type="tel" id="contactPhone" name="phone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactSubject">Subject</label>
+                                    <select id="contactSubject" name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="order">Order Question</option>
+                                        <option value="product">Product Information</option>
+                                        <option value="support">Technical Support</option>
+                                        <option value="feedback">Feedback</option>
+                                        <option value="partnership">Partnership</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactMessage">Message</label>
+                                    <textarea id="contactMessage" name="message" rows="5" required placeholder="Tell us how we can help you..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-grid">
+                            <div class="faq-item">
+                                <h3>How do I place an order?</h3>
+                                <p>You can place an order by browsing our products, adding them to your cart, and proceeding to checkout. You'll need to create an account or log in to complete your purchase.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>What are your shipping options?</h3>
+                                <p>We offer standard shipping (3-5 business days) and express shipping (1-2 business days). Shipping costs vary based on your location and order size.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>Do you ship internationally?</h3>
+                                <p>Currently, we ship to most countries. Please check our shipping page for the complete list of supported countries and shipping rates.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>What is your return policy?</h3>
+                                <p>We accept returns within 30 days of delivery for unused products in their original packaging. Please contact our customer service team to initiate a return.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>Are your products organic?</h3>
+                                <p>Yes, all our products are certified organic. We work with trusted suppliers who maintain the highest organic standards.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>How can I track my order?</h3>
+                                <p>Once your order ships, you'll receive a tracking number via email. You can also track your order by logging into your account and visiting the "My Orders" section.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fresh Harvest</h3>
+                    <p>Your trusted source for premium fruit juices and dry fruits.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruit-juice">Fruit Juices</a></li>
+                        <li><a href="products.html?category=dry-fruits">Dry Fruits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fresh Harvest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
